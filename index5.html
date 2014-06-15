@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+<form name="search">
+    <label>Поиск по сайту: <input type="text" name="search"></label>
+    <input type="submit" value="Искать!">
+</form>
+
+<hr>
+
+<form name="search-person">
+    Поиск по посетителям:
+    <table id="age-table">
+        <tr>
+            <td>Возраст:</td>
+            <td id="age-list">
+                <label><input type="radio" name="age" value="young">до 18</label>
+                <label><input type="radio" name="age" value="mature">18-50</label>
+                <label><input type="radio" name="age" value="senior">более 50</label>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Дополнительно:</td>
+            <td>
+                <input type="text" name="info[0]">
+                <input type="text" name="info[1]">
+                <input type="text" name="info[2]">
+            </td>
+        </tr>
+
+    </table>
+
+    <input type="submit" value="Искать!">
+</form>
+<script>
+    var table = document.getElementById('age-table');
+    var result = table.getElementsByTagName('label');
+
+    for (var i=0; i<result.length; i++) {
+        var input = result[i];
+        console.log( i + '\t' + input.innerHTML );
+    }
+    console.log('-----------------------------------------------------------------------');
+
+    var firstTd = document.getElementsByTagName('td');
+    console.log( firstTd[0].innerHTML );
+
+    console.log('-----------------------------------------------------------------------');
+
+    var secondForm = document.getElementsByTagName('form');
+    console.log(secondForm[1].innerHTML);
+
+    console.log('-----------------------------------------------------------------------');
+
+    var searchForm1 = document.forms.search;
+    console.log(searchForm1.innerHTML);
+
+    console.log('-----------------------------------------------------------------------');
+
+    var searchForm2 = document.forms.search;
+    var dd = searchForm2.getElementsByTagName('input')[0];
+    console.log( dd );
+
+    console.log('-----------------------------------------------------------------------');
+
+    var six = document.getElementsByName('info[0]')[0];
+    console.log(six);
+
+    console.log('-----------------------------------------------------------------------');
+
+    var fod = document.forms['search-person'].elements['info[0]'];
+
+    console.log( fod );
+
+
+</script>
+</body>
+
+</html>

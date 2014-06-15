@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<style>
+    .external { background-color: yellow }
+</style>
+<ul>
+    <li><a href="http://google.com">http://google.com</a></li>
+    <li><a href="/tutorial">/tutorial.html</a></li>
+    <li><a href="ftp://ftp.com/my.zip">ftp://ftp.com/my.zip</a></li>
+    <li><a href="http://nodejs.org">http://nodejs.org</a></li>
+    <li><a href="http://javascript.ru/test">http://javascript.ru/test</a></li>
+    <li><a href="ftp://javascript.ru/file">ftp://javascript.ru/file</a></li>
+</ul>
+<script>
+
+    var aTag = document.getElementsByTagName('a');
+//    console.log(aTag[0].getAttribute('href'));
+//    console.log(aTag[0].href);
+
+//    if (aTag[0].indexOf('://') == -1) {
+//        console.log(aTag[0].indexOf('://'));
+//    }
+
+//    console.log(aTag[2].href.split('/')[2]);
+var v1 = 'qwertyuiop1234516789';
+    console.log(v1.split(1)[0]);
+    console.log(v1.split(1)[1]);
+    console.log(v1.split(1)[2]);
+
+    for(var i = 0; i < aTag.length; i++){
+
+
+
+        if(aTag[i].getAttribute('href').slice(0,7) == 'http://' || aTag[i].getAttribute('href').slice(0,6) == 'ftp://'){
+            if(aTag[i].getAttribute('href').split('/')[2] != 'javascript.ru'){
+//                console.log(aTag[i].getAttribute('href'));
+//                console.log(aTag[i].href);
+                aTag[i].className = 'external';
+            }
+        }
+    }
+
+//        aTag[0].className = 'external';
+
+</script>
+</body>
+</html>

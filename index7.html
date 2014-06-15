@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+
+<table>
+    aaa
+    <tr>bbb
+        <td>Test</td>
+    </tr>
+</table>
+
+<script>
+//    console.log();
+    var table = document.body.children[0];
+    table.class = 'dogs';
+//    console.log(table.innerHTML); // таблица, пока всё правильно
+console.log(document.body.innerHTML);
+    document.body.removeChild( table );
+
+console.log(document.body.innerHTML);
+    // почему в документе остался текст?
+
+</script>
+
+</body>
+</html>

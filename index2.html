@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div about="Elephant" class="smiling"></div>
+<div about="pha"></div>
+<script>
+
+    var div = document.body.children[0];
+    console.log( div.getAttribute('ABOUT') ); // (1)
+
+    div.setAttribute('Test', 123);   // (2)
+    console.log( document.body.innerHTML );   // (3)
+
+    var attrs = div.attributes;  // (4)
+    for (var i=0; i<attrs.length; i++) {
+        console.log(attrs[i].name + " = " + attrs[i].value);
+    }
+    if(document.body.id){
+        console.log('yes')
+        document.body.setAttribute('id','la-la-la');
+        alert(document.body.id); // la-la-la
+    }else
+    {
+        console.log('no');
+    }
+
+</script>
+</body>
+</html>

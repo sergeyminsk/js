@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script>
+    var mainVar = 1;
+    console.log(mainVar);
+    var fu1 = function(){
+        var mainVar = 2;
+        console.log(mainVar);
+        (function(){
+            var mainVar = 3;
+            console.log(mainVar);
+            (function(){
+                var mainVar = 4;
+                console.log(mainVar);
+                //console.log(window);
+            }());
+        })();
+    };
+    fu1();
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>First title</title>
+</head>
+<body>
+<div id="header">Шапка</div>
+
+<ul>
+    <li style="background-color:red">Осторожно</li>
+    <li class="info"><input type="text" id="f7" value="Информация">22</li>
+
+</ul>
+<div id="footer">Подвал. &copy; javascript.ru</div>
+<!-- комментарий -->
+
+
+<script>
+    var html = document.documentElement;
+    console.log(html);
+
+    var firstTitle = document.title;
+    document.title = 'Second title';
+
+    console.log('-----------------------------');
+
+    console.log('First title is "' + firstTitle + '"');
+    console.log('Now title is "' + document.title + '"');
+
+    console.log('-----------------------------');
+
+    var div1 = document.body.children[0];
+    console.log('dev 1:\t' + div1.innerHTML);
+
+    console.log('-----------------------------');
+
+    var li1 = document.body.children[1].children[0];
+    console.log('li 1:\t' + li1.innerHTML);
+
+    console.log('-----------------------------');
+
+    var li2 = document.body.children[1].children[1].children[0];
+    console.log('li 2:\t' + li2.value);
+    console.log(li2.getAttribute('type'));
+    console.log(li2.getAttribute('id'));
+
+    console.log('-----------------------------');
+
+    var div2 = document.body.children[2];
+    console.log('dev 2:\t' + div2.innerHTML);
+    console.log(div2.getAttribute('id'));
+
+    console.log('-----------------------------');
+
+    var getById = document.getElementById("header")
+    console.log('getElementById:\t' + getById.innerHTML);
+
+    console.log('-----------------------------');
+
+    var elements = document.getElementsByTagName('div');
+    for (var i=0; i<elements.length; i++) {
+        var input = elements[i];
+        console.log('getElementsByTagName\t' + i + '\t' + input.innerHTML + '\t\tid:\t' + input.id);
+    }
+
+    console.log('-----------------------------');
+
+
+
+
+
+
+
+
+
+
+    var list = [];
+    for (var key in document.body) {
+        list.push(key);
+    }
+    //    console.log(list.join('\n'));
+</script>
+</body>
+</html>

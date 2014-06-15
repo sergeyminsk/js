@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+
+<div>one one one one one one </div><div>two two two two two two </div>
+<button onclick="deleteAll()">Delete</button>
+<button onclick="changeAll()">change</button>
+<div>first</div>
+<button onclick="deleteMe()">delete me</button>
+<style>
+    .message {
+        width: 300px;
+        height: 130px;
+        border: 1px solid gray;
+        text-align: center;
+    }
+    .message h1 {
+        color: red;
+        background: azure;
+        font-size: 16px;
+        height: 30px;
+        line-height: 30px;
+        margin: 0;
+    }
+    .message .content {
+        height: 50px;
+        padding: 10px;
+    }
+</style>
+<div class="message">
+    <h1>Zagolovok</h1>
+    <div class="content">text soobscheniya</div>
+    <input onclick="deleteWin()" class="ok" type="button" value="OK"/>
+</div>
+
+<script>
+
+var parentElem = document.body.children[4];
+var one;
+var two;
+var delButton;
+var newDiv = document.createElement('div');
+newDiv.innerHTML = 'second';
+
+
+var newDiv2 = document.createElement('div');
+newDiv2.innerHTML = 'third';
+
+
+parentElem.insertBefore(newDiv, parentElem.firstChild);
+
+var parentElem2 = document.body.children[4].children[0];
+parentElem2.appendChild(newDiv2);
+
+function deleteAll(){
+    document.body.removeChild(parentElem);
+//    console.log(document.body.innerHTML);
+}
+var reLoadVar = function(){
+    one = document.body.children[0];
+    two = document.body.children[1];
+}
+
+function changeAll(){
+    reLoadVar();
+    document.body.insertBefore(two, one);
+}
+function deleteMe(){
+    document.body.removeChild(document.body.children[5]);
+}
+
+function deleteWin(){
+    document.body.removeChild(document.body.children[6]);
+    document.body.removeChild(document.body.children[6]);
+}
+console.log(document.body.children[0]);
+//console.log(document.body.innerHTML);
+
+</script>
+
+</body>
+</html>

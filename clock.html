@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+<table border="0" cellpadding="2">
+    <tr>
+        <td colspan="2" id="clockSpace" valign="center" align="center"><font color="red">hh</font>:<font color="green">mm</font>:<font color="blue">ss</font>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="button" onclick="clockStart()" value="Start">
+        </td>
+        <td>
+            <input type="button" onclick="clockStop()" value="Stop">
+        </td>
+    </tr>
+</table>
+<script>
+
+    var d = new Date();
+
+    var stopNewTime;
+    var stopShowTime;
+
+    function getNewTime(){
+        d = new Date();
+    }
+
+    function clockStart(){
+        showTime();
+        stopShowTime = setInterval(showTime, 1000);
+    }
+    function clockStop(){
+        clearTimeout(stopShowTime);
+    }
+
+    function getRightSeconds(){
+        return d.getSeconds() < 10 ? '0' + d.getSeconds() : d.getSeconds();
+    }
+    function getRightMinutes(){
+        return d.getMinutes() < 10 ? '0' + d.getMinutes() : d.getMinutes();
+    }
+    function showTime(){
+        getNewTime();
+        var fist = document.getElementById('clockSpace');
+        fist.innerHTML = '<font color="red">' + d.getHours() + '</font>' + ':' + '<font color="green">' + getRightMinutes() + '</font>' + ':' + '<font color="blue">' + getRightSeconds() + '</font>';
+    }
+
+</script>
+
+</body>
+</html>

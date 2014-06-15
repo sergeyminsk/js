@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="alert.css" />
+</head>
+<body>
+<script>
+var idNum = 0;
+    function createMessage(title, body) {
+        var container = document.createElement('div');
+
+        container.innerHTML = '<div class="message"> \
+    <h1>' + title + '</h1> \
+    <div class="content">' + body + '</div> \
+    <input onclick="deleteWorld()" class="ok" type="button" value="OK"> \
+  </div>';
+
+        return container.firstChild;
+    }
+
+
+function createWorld(){
+    var messageElem = createMessage('Привет, элемент DOM!', 'Я - Мир!')
+
+    document.body.appendChild(messageElem);
+}
+function deleteWorld(){
+    console.log('OK');
+
+}
+</script>
+<button onclick="createWorld()">create</button>
+
+<style>
+    .message {
+        width: 300px;
+        height: 130px;
+        border: 1px solid gray;
+        text-align: center;
+    }
+    .message h1 {
+        color: red;
+        background: azure;
+        font-size: 16px;
+        height: 30px;
+        line-height: 30px;
+        margin: 0;
+    }
+    .message .content {
+        height: 50px;
+        padding: 10px;
+    }
+</style>
+</body>
+</html>

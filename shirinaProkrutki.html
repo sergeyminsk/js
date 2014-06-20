@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<script>
+/*    var div = document.createElement('div');
+    div.style.overflowY = 'scroll';
+    div.style.width =  '50px';
+    div.style.height = '50px';
+    div.style.border = '2';
+
+    div.style.visibility = 'hidden';
+    document.body.appendChild(div);
+    var scrollWidth = div.offsetWidth - div.clientWidth;
+    document.body.removeChild(div);
+    //console.log(document.body.innerHTML);
+console.log( scrollWidth );
+*/
+
+document.title = 'TestPage';
+console.log(document.title);
+
+
+var div = document.createElement('div');
+
+div.innerHTML = 'hello';
+div.className = 'dod';
+div.style.backgroundColor = 'red';
+div.style.borderColor = 'green';
+
+
+
+
+document.body.appendChild(div);
+
+console.log(document.body.children[1].innerHTML);
+console.log(document.body.children[1].className);
+
+
+
+</script>
+</body>
+</html>

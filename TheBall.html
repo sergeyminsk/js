@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        #field {
+            width: 200px;
+            border: 10px groove black;
+            background-color: #00FF00;
+            position: relative;
+        }
+
+        #ball {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="field">
+    <img src="ball.gif" id="ball" width="40" height="40">
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+</div>
+<script>
+    var ball = document.getElementById('ball');
+    var field = document.getElementById('field');
+
+    console.log(ball.id);
+    ball.style.top = (field.clientHeight * 0.5 - ball.offsetHeight * 0.5) + 'px';
+    ball.style.left = (field.clientWidth * 0.5 - ball.offsetWidth * 0.5) + 'px';
+
+
+
+    console.log(document.body.children[0].style.clientHeight);
+</script>
+
+</body>
+</html>

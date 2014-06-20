@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+<button data-toggle-id="subscribe-mail">
+    Кликните для подписки
+</button>
+<div id="subscribe-mail" style="display:none">
+    Ваша почта: <input type="email">
+</div>
+<script>
+    document.onclick = function(event) {
+        event = event || window.event;
+        var target = event.target || event.srcElement;
+
+        var dataToggleId = target.getAttribute('data-toggle-id');
+        console.log(dataToggleId.toString());
+        if (!dataToggleId) return;
+
+        var elem = document.getElementById(dataToggleId);
+        console.log(elem.innerHTML);
+        elem.style.display = elem.offsetHeight ? 'none' : 'block';
+    }
+
+</script>
+</body>
+</html>

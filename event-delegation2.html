@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+        <style>
+        * html body {
+            behavior:url("csshover.htc"); /* IE6: http://www.xs4all.nl/~peterned/csshover.html */
+
+        }
+
+        .tree span:hover {
+            font-weight: bold;
+        }
+        .tree span {
+            cursor: pointer;
+        }
+        span {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        }
+    </style>
+    <meta charset="utf-8">
+</head>
+<body>
+<ul class="tree">
+    <li>Животные
+        <ul>
+            <li>Млекопитающие
+                <ul>
+                    <li>Коровы</li>
+                    <li>Ослы</li>
+                    <li>Собаки</li>
+                    <li>Тигры</li>
+                </ul>
+            </li>
+            <li>Другие
+                <ul>
+                    <li>Змеи</li>
+                    <li>Птицы</li>
+                    <li>Ящерицы</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>Рыбы
+        <ul>
+            <li>Аквариумные
+                <ul>
+                    <li>Гуппи</li>
+                    <li>Скалярии</li>
+                </ul>
+
+            </li>
+            <li>Морские
+                <ul>
+                    <li>Морская форель</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<script>
+
+    var li = document.getElementsByTagName('li');
+    var ul = document.getElementsByTagName("ul");
+
+    for(var i = 0; i < li.length; i++){
+        var span = document.createElement('span');
+        li[i].insertBefore(span, li[i].firstChild);
+        span.appendChild(span.nextSibling);
+    }
+
+
+
+var i = 0;
+    var span = document.getElementsByTagName('span');
+    ul[0].onclick = function(event){
+        event = event || window.event;
+        var target = event.target || event.srcElement;
+
+        if(target.tagName == 'SPAN'){
+            console.log('ok ' + i++ + ' ' + target.innerHTML)
+
+            var node = target.parentNode.getElementsByTagName('ul')[0];
+
+            if (!node) return;
+
+            node.style.display = node.style.display ? '' : 'none';
+
+        }else{
+            return;
+        }
+    }
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

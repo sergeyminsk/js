@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+
+
+</head>
+<body>
+
+<input type="button" id="hider" value="Нажмите, чтобы спрятать текст"/>
+<input type="button" id="willHide" value="сча спрячусь"/>
+<input type="button" onclick="this.style.display='none'" value="Нажми, чтобы меня спрятать"/>
+<input type="button" id="elem" value="покажет координаты нажатия"/>
+
+<div id="hide">Текст</div>
+
+<script>
+    document.getElementById('hider').onclick = function(){
+        document.body.removeChild(document.getElementById('hide'));//document.getElementById('hide').innerHTML = '';
+    };
+
+    document.getElementById('willHide').onclick = function(){
+        document.body.removeChild(this);
+    }
+
+
+    document.getElementById('elem').onclick = function(event) {
+        event = event || window.event; // (*)
+//        alert(event.clientX);
+
+        var div = document.createElement('div');
+        div.innerHTML = 'x: ' + event.clientX + ' y: ' + event.clientY;
+
+        div.onclick = rem;
+
+        function rem(){
+            this.innerHTML = '';
+        }
+        document.body.appendChild(div);
+    };
+
+</script>
+</body>
+</html>

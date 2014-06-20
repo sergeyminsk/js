@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+<script>
+    var scrollHeight = document.documentElement.scrollHeight;
+    var clientHeight = document.documentElement.clientHeight;
+
+
+    scrollHeight = Math.max(scrollHeight, clientHeight);
+
+
+    console.log('Высота с учетом прокрутки: ' + scrollHeight);
+
+    var div = document.createElement('div');
+
+    div.innerHTML = 'Высота с учетом прокрутки: ' + scrollHeight;
+
+
+
+
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    console.log("Текущая прокрутка: " + scrollTop);
+
+    div.innerHTML += " Текущая прокрутка: " + scrollTop;
+
+
+    for(var i = 0; i < 1000; i++){
+        div.innerHTML += ' Hello' + i + ' ';
+    }
+
+    document.body.appendChild(div);
+
+//    window.scrollBy(0, 100);
+    document.body.style.overflow = "hidden"; // document.body.style.overflow = ""
+</script>
+</body>
+</html>

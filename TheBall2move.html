@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        #field {
+            width: 200px;
+            height: 150px;
+            border: 10px groove black;
+            background-color: #00FF00;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #ball {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -20px;
+            margin-top: -20px;
+
+            /* это не моя работа*/
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 1s;
+            -o-transition: all 1s;
+            -ms-transition: all 1s;
+            transition: all 1s;
+        }
+    </style>
+</head>
+<body style="height:2000px">
+
+Кликните на любое место поля, чтобы мяч перелетел туда.<br>
+Мяч никогда не вылетит за границы поля.
+
+
+<div id="field">
+    <img src="ball.gif" id="ball">
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+</div>
+<div ondblclick="console.log('Тест')" onselectstart="return false" onmousedown="return false">
+    Двойной клик сюда выведет "Тест", без выделения
+</div>
+<ul onmousedown="return false" onselectstart="return false">
+    <li>Винни-Пух</li>
+    <li>Ослик Иа</li>
+    <li>Мудрая Сова</li>
+    <li>Кролик. Просто кролик.</li>
+</ul>
+<ul>
+    <li ondblclick="console.log(1);">Выделяется при двойном клике</li>
+    <li ondblclick="console.log(2);clearSelection()">Выделение отменяется при двойном клике.</li>
+</ul>
+<script>
+    function clearSelection() {
+        if (window.getSelection) {
+            window.getSelection().removeAllRanges();
+        } else { // старый IE
+            document.selection.empty();
+        }
+    }
+</script>
+
+
+
+<style>
+    b {
+        -webkit-user-select: none; /* user-select -- это нестандартное свойство */
+        -moz-user-select: none;    /* поэтому нужны префиксы */
+        -ms-user-select: none;
+        -o-user-select: none; /* не поддерживается, просто на будущее */
+    }
+</style>
+<div ondblclick="console.log('Тест')">
+    <b>Этот текст нельзя выделить в Firefox, Safari/Chrome, IE10</b>
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+    var div = document.getElementById('field');
+    var img = document.getElementById('ball');
+    div.onclick = function(){
+        console.log('X: ' + event.clientX + ' Y: ' + event.clientY);
+        img.style.top = /*event.clientY*/topVal() + 'px';
+        img.style.left = /*event.clientX*/leftVal() + 'px';
+        document.body.appendChild(img);
+    }
+
+
+    function topVal(){
+        if(event.clientY > 188){
+            return 188;
+        }
+        if(event.clientY < 78){
+            return 78;
+        }
+        if(event.clientY){
+            return event.clientY;
+        }
+
+    }
+    function leftVal(){
+        if(event.clientX > 198){
+            return 198;
+        }
+        if(event.clientX < 38){
+            return 38;
+        }
+        if(event.clientX){
+            return event.clientX;
+        }
+
+    }
+
+    img.style.top =  78 + 'px'; //188
+    img.style.left = 39 + 'px'; // 198
+    document.body.appendChild(img);
+    // координаты поля относительно окна
+console.log(field.getBoundingClientRect());
+
+
+</script>
+
+</body>
+</html>

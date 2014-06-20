@@ -12,7 +12,7 @@
     console.log( div.getAttribute('ABOUT') ); // (1)
 
     div.setAttribute('Test', 123);   // (2)
-    console.log( document.body.innerHTML );   // (3)
+    console.log( '1' + document.body.innerHTML );   // (3)
 
     var attrs = div.attributes;  // (4)
     for (var i=0; i<attrs.length; i++) {

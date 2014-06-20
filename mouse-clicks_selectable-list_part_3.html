@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        .selected {
+            background: #0f0;
+        }
+        li {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+Клик на элементе выделяет только его.<br>
+Ctrl(Cmd)+Клик добавляет/убирает элемент из выделенных.<br>
+Shift+Клик добавляет промежуток от последнего кликнутого к выделению.<br>
+
+<ul>
+    <li>Кристофер Робин</li>
+    <li>Винни-Пух</li>
+    <li>Ослик Иа</li>
+    <li>Мудрая Сова</li>
+    <li>Кролик. Просто кролик.</li>
+</ul>
+
+<script>
+    var li = document.getElementsByTagName('li');
+    var ul = document.getElementsByTagName("ul");
+    var chekVal = 0;
+
+    for(var i = 0; i < li.length; i++){
+        li[i].id = i;
+    }
+
+    ul[0].onmousedown = function(event){
+        event = event || window.event;
+        var target = event.target || event.srcElement;
+
+        for(var i = 0; i < li.length; i++){
+            if(li[i].className){
+                chekVal++;
+            }
+        }
+
+        console.log('chekVal ' + chekVal);
+        if(event.ctrlKey){
+            target.className = target.className == 'selected' ? '' : 'selected';
+        }else{
+            for(var i = 0; i < li.length; i++){
+                li[i].className = '';
+            }
+            target.className = 'selected'
+        }
+        if(event.shiftKey){
+
+            if(chekVal == 0){
+                console.log('empty');
+            }
+
+
+        }
+        chekVal = 0;
+    }
+
+</script>
+</body>
+</html>

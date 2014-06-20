@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>mouse-clicks</title>
+</head>
+<body>
+<button oncontextmenu="alert('Клик!');">Правый клик сюда</button><br>
+<button oncontextmenu="alert('Клик!');return false">Правый клик сюда</button><br>
+<button>Ctrl+Shift+Кликни меня!</button><br>
+
+<script>
+
+
+    document.body.children[4].onclick = function(event) {
+        event = event || window.event;
+        if (!event.ctrlKey || !event.shiftKey) return;
+        alert('Ура!');
+    }
+
+
+
+
+
+    /* кросс-браузерный метод для which */
+    function fixWhich(e) {
+        if (!e.which && e.button) { // если which нет, но есть button...
+            if (e.button & 1) e.which = 1;      // левая кнопка
+        else if (e.button & 4) e.which = 2; // средняя кнопка
+        else if (e.button & 2) e.which = 3; // правая кнопка
+        }
+    }
+
+</script>
+</body>
+</html>

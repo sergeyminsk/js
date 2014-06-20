@@ -5,10 +5,16 @@
     <title>events-and-timing-depth</title>
 </head>
 <body>
-<input type="button" value="Нажми меня">
-<input type="text" size="60">
 <textarea rows="6" cols="40">Кликни меня
-</textarea>
+</textarea><br>
+<input type="button" value="Нажми меня"><br>
+<input type="text" size="60"><br>
+<input type="button" value="Нажми меня"><br>
+<input id="my" type="text" placeholder="keydown"><br>
+<input id="my2" type="text" placeholder="keyup"><br>
+<input id="my3" type="text" placeholder="Оптимальный вариант"><br>
+
+
 
 
 <script>
@@ -21,8 +27,8 @@
 // -----------------------------
 
 
-    var button = document.body.children[0];
-    var text = document.body.children[1];
+    var button = document.body.children[2];
+    var text = document.body.children[4];
     button.onclick = function() {
         text.value += ' ->в onclick ';
         text.focus(); // вызов инициирует событие onfocus
@@ -30,6 +36,37 @@
     };
     text.onfocus = function() {
         text.value += ' !focus! ';
+    };
+
+// ------------------------------
+
+    var input = document.body.children[6];
+    input.onclick = function() {
+        function handle() {
+            input.value += ' -> input';
+        }
+//        handle();
+        setTimeout(handle, 0); // отложить обработку
+    }
+    document.onclick = function() {
+        input.value += ' -> document';
+    }
+// ----------------------------
+
+    document.getElementById('my').onkeydown = function() {
+        this.value = this.value.toUpperCase();
+    };
+
+    document.getElementById('my2').onkeyup = function() {
+        this.value = this.value.toUpperCase();
+    };
+
+    document.getElementById('my3').onkeydown = function() {
+        var self = this;
+        function handle() {
+            self.value = self.value.toUpperCase()
+        }
+        setTimeout(handle, 0);
     };
 
 </script>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>events-and-timing-depth</title>
+</head>
+<body>
+<input type="button" value="Нажми меня">
+<input type="text" size="60">
+<textarea rows="6" cols="40">Кликни меня
+</textarea>
+
+
+<script>
+
+    var area = document.getElementsByTagName('textarea')[0];
+    area.onmousedown = function() { this.value += 'mousedown\n'; };
+    area.onmouseup = function() {  this.value += 'mouseup\n'; };
+    area.onclick = function() {  this.value += 'click\n'; };
+
+// -----------------------------
+
+
+    var button = document.body.children[0];
+    var text = document.body.children[1];
+    button.onclick = function() {
+        text.value += ' ->в onclick ';
+        text.focus(); // вызов инициирует событие onfocus
+        text.value += ' из onclick-> ';
+    };
+    text.onfocus = function() {
+        text.value += ' !focus! ';
+    };
+
+</script>
+
+</body>
+</html>

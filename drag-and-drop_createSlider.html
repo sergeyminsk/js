@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+<style>
+    .slider {
+        border-radius: 5px;
+        background: #E0E0E0;
+        background: -moz-linear-gradient(left top , #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;
+        background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));
+        background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+        width: 310px;
+        height: 15px;
+        margin: 50px;
+    }
+    .thumb {
+        width: 10px;
+        height: 25px;
+        border-radius: 3px;
+        position: relative;
+        left: 10px;
+        top: -5px;
+        background: blue;
+        cursor: pointer;
+    }
+    div {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+    }
+</style>
+
+<div id="slider" class="slider">
+    <div class="thumb"></div>
+</div>
+<script>
+
+    var sliderElem = document.getElementById('slider');
+    var thumbElem = sliderElem.children[0];
+
+    thumbElem.ondragstart = function() { return false; };
+    thumbElem.onmousedown = function(e) {
+        e = fixEvent(e);
+        var thumbCoords = getCoords(thumbElem);
+        var shiftX = e.pageX - thumbCoords.left;
+        var shiftY = e.pageY - thumbCoords.top;
+
+        var sliderCoords = getCoords(sliderElem);
+
+        document.onmousemove = function(e) {
+            e = fixEvent(e);
+
+            //  вычесть координату родителя, т.к. position: relative
+            var newLeft = e.pageX - shiftX - sliderCoords.left;
+
+            // курсор ушёл вне слайдера
+            if (newLeft < 0) {
+                newLeft = 0;
+            }
+            var rightEdge = sliderElem.offsetWidth - thumbElem.offsetWidth;
+            if (newLeft > rightEdge) {
+                newLeft = rightEdge;
+            }
+
+            thumbElem.style.left = newLeft + 'px';
+        }
+
+        document.onmouseup = function() {
+            document.onmousemove = document.onmouseup = null;
+        };
+
+        return false; // disable selection start (cursor change)
+    };
+/*  my answer  */
+/*
+    var thumb = document.getElementsByClassName('thumb')[0];
+    var slider = document.getElementsByClassName('slider')[0];
+
+    var polY;
+    thumb.onmousedown = function(e){
+        var self = this;
+        e = fixEvent(e);
+
+        var coords = getCoords(this);
+        var shiftX = e.pageX - coords.left;
+        var shiftY = e.pageY - coords.top;
+
+        this.style.position = 'absolute';
+        moveAt(e);
+
+        document.body.appendChild(this);
+        this.style.zIndex = 1000;
+
+        if(polY === undefined){
+            polY = e.pageY-shiftY;
+        }
+        function moveAt(e) {
+            if(e.pageX > 355){
+                document.onmousemove =  null;
+                self.style.left = '350px';
+                return;
+            }
+            if(e.pageX < 65){
+                document.onmousemove =  null;
+                self.style.left = '65px';
+                return;
+            }
+            self.style.left = e.pageX - shiftX + 'px';
+            self.style.top = polY + 'px';
+            if(document.elementFromPoint(e.clientX, e.clientY)){
+                console.log(e.clientX + ' ' + e.clientY);
+            }
+
+        }
+        document.onmousemove = function(e) {
+            e = fixEvent(e);
+            moveAt(e);
+
+        }
+        this.onmouseup = function() {
+            document.onmousemove = self.onmouseup = null;
+        }
+    }
+
+
+    document.onmouseup = function() {
+        document.onmousemove = document.onmouseup = null;
+    };
+    thumb.ondragstart = function() {
+        return false;
+    };
+*/
+    function fixEvent(e) {
+        e = e || window.event;
+
+        if (!e.target) e.target = e.srcElement;
+
+        if (e.pageX == null && e.clientX != null ) { // если нет pageX..
+            var html = document.documentElement;
+            var body = document.body;
+
+            e.pageX = e.clientX + (html.scrollLeft || body && body.scrollLeft || 0);
+            e.pageX -= html.clientLeft || 0;
+
+            e.pageY = e.clientY + (html.scrollTop || body && body.scrollTop || 0);
+            e.pageY -= html.clientTop || 0;
+        }
+
+        if (!e.which && e.button) {
+            e.which = e.button & 1 ? 1 : ( e.button & 2 ? 3 : ( e.button & 4 ? 2 : 0 ) )
+        }
+
+        return e;
+    }
+    function getCoords(elem) {
+        // (1) Получаем прямоугольник.
+        var box = elem.getBoundingClientRect();
+
+        var body = document.body;
+        var docEl = document.documentElement;
+
+        // (2)Считаем прокрутку страницы. Все браузеры,
+        // кроме IE<9 поддерживают свойство
+        // pageXOffset/pageYOffset. В более старых IE,
+        // когда установлен DOCTYPE, прокрутку можно
+        // получить из documentElement, ну и наконец если
+        // DOCTYPE некорректен — использовать body
+        var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+        var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+        // (3)В IE документ может быть смещен
+        // относительно левого верхнего угла.
+        // Получим это смещение
+        var clientTop = docEl.clientTop || body.clientTop || 0;
+        var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+        // (4) Добавим прокрутку к координатам окна
+        // и вычтем смещение html/body,
+        // чтобы получить координаты всего документа
+        var top  = box.top +  scrollTop - clientTop;
+        var left = box.left + scrollLeft - clientLeft;
+
+        // (5) Координаты округляются вызовом Math.round()
+        // т.к. в Firefox бывают дробные пиксели
+        return { top: Math.round(top), left: Math.round(left) };
+    }
+</script>
+</body>
+</html>

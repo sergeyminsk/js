@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+
+        .button:hover { background-position: 0 -52px; }
+
+        .button:active { background-position: 0 -104px; }
+
+        .button {
+            width: 186px;
+            height: 52px;
+            background: url(button.png) no-repeat 0 0;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<p>JavaScript</p><img src="button_static.png">
+
+<p>CSS div</p>
+<div class="button"></div>
+
+<p>CSS a</p>
+<a href="#" class="button"></a>
+
+
+<script>
+
+    var img = document.getElementsByTagName('img')[0];
+    img.onmouseover = function(){
+        img.src = "button_hover.png"
+    }
+    img.onmouseout = function(){
+        img.src = "button_static.png"
+    }
+
+    img.onmousedown = function(){
+        img.src = "button_click.png"
+    }
+    img.onmouseup = function(){
+        img.src = "button_hover.png"
+    }
+
+
+    function addClass(el, cls) {
+        for(var c = el.className.split(' '),i=c.length-1; i>=0; i--) {
+            if (c[i] == cls) return
+        }
+
+        el.className += ' '+cls
+    }
+
+    function removeClass(el, cls) {
+        for(var c = el.className.split(' '),i=c.length-1; i>=0; i--) {
+            if (c[i] == cls) c.splice(i,1)
+        }
+
+        el.className = c.join(' ')
+    }
+
+</script>
+
+
+
+</body>
+</html>

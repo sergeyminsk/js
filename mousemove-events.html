@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body * { border: 1px solid red; margin:10px; padding: 0 }
+        body, html { height: 130px; margin: 0; padding: 0; }
+    </style>
+    <title></title>
+</head>
+<body>
+<div style="width:100px; font-size: 32px; margin-top: 0; background:green" id="Боб">Боб</div>
+<div style="width:100px; font-size: 30px; background:blue" id="Алиса">Алиса</div>
+Mouseover: <span id="mouseover">элементы</span>
+Mouseout: <span id="mouseout">элементы</span>
+
+<script>
+
+    function handler(e) {
+        e = e || event;
+        if (e.type == 'mouseover') {
+            var fromElem = e.fromElement || e.relatedTarget;
+            var toElem = e.srcElement || e.target;
+        } else if (e.type == 'mouseout') {
+            fromElem = e.srcElement || e.target;
+            toElem = e.toElement || e.relatedTarget;
+        }
+
+        function str(el) {
+            return el ? (el.id || el.nodeName) : 'null';
+        }
+
+        document.getElementById(e.type).innerHTML = "Переход с "+str(fromElem)+ " на "+str(toElem);
+    }
+
+    document.body.onmouseover = document.body.onmouseout = handler;
+    /*  relatedTarget for IE  */
+    function fixRelatedTarget(e) {
+        if (!e.relatedTarget) {
+            if (e.type == 'mouseover') e.relatedTarget = e.fromElement;
+            if (e.type == 'mouseout') e.relatedTarget = e.toElement;
+        }
+    }
+
+</script>
+</body>
+</html>

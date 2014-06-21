@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>mousemove-events</title>
+</head>
+<body>
+<div id="div">
+<button id="1">one</button><button id="2">two</button><button id="3">three</button><button id="4">four</button><button id="5">five</button><button id="6">six</button><button id="7">seven</button><button id="8">eight</button><button id="9">nine</button><button id="10">ten</button>
+</div>
+<script>
+    var div = document.getElementById('div');
+    var lastX = 0;
+    var lastY = 0;
+    div.onmouseover = function(event){
+        event = event || window.event;
+        var target = event.target || event.srcElement;
+        fixPageXY(event);
+
+        if(target.id !='div'){
+            setInterval(fuu, 1500);
+            lastX = event.pageX;
+            lastY = event.pageY;
+
+        }
+        function fuu(){
+            if(lastX == event.pageX && lastY == event.pageY){
+                console.log('cursor stoped');
+            }
+        }
+
+    }
+
+
+
+    function fixPageXY(e) {
+        if (e.pageX == null && e.clientX != null ) { // если нет pageX..
+            var html = document.documentElement;
+            var body = document.body;
+            e.pageX = e.clientX + (html.scrollLeft || body && body.scrollLeft || 0);
+            e.pageX -= html.clientLeft || 0;
+            e.pageY = e.clientY + (html.scrollTop || body && body.scrollTop || 0);
+            e.pageY -= html.clientTop || 0;
+        }
+    }
+</script>
+</body>
+</html>

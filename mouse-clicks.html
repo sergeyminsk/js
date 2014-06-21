@@ -8,9 +8,18 @@
 <button oncontextmenu="alert('Клик!');">Правый клик сюда</button><br>
 <button oncontextmenu="alert('Клик!');return false">Правый клик сюда</button><br>
 <button>Ctrl+Shift+Кликни меня!</button><br>
-
+<input onmousemove="this.value = event.clientX+':'+event.clientY">
+<input onmousemove="this.value = event.pageX+':'+event.pageY"><br>
+<div>x:</div><input id="mouseY"><br>
+<div>y:</div><input id="mouseX"><br>
 <script>
 
+    document.onmousemove = function(e) {
+        e = e || window.event;
+        fixPageXY(e);
+        document.getElementById('mouseX').value = e.pageX;
+        document.getElementById('mouseY').value = e.pageY;
+    }
 
     document.body.children[4].onclick = function(event) {
         event = event || window.event;
@@ -20,7 +29,17 @@
 
 
 
-
+/*  pageX/pageY для старых IE  */
+    function fixPageXY(e) {
+        if (e.pageX == null && e.clientX != null ) { // если нет pageX..
+            var html = document.documentElement;
+            var body = document.body;
+            e.pageX = e.clientX + (html.scrollLeft || body && body.scrollLeft || 0);
+            e.pageX -= html.clientLeft || 0;
+            e.pageY = e.clientY + (html.scrollTop || body && body.scrollTop || 0);
+            e.pageY -= html.clientTop || 0;
+        }
+    }
 
     /* кросс-браузерный метод для which */
     function fixWhich(e) {

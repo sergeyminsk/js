@@ -7,8 +7,13 @@
             background: #0f0;
         }
         li {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
             cursor: pointer;
         }
+
     </style>
 </head>
 <body>
@@ -26,9 +31,10 @@ Shift+Клик добавляет промежуток от последнего
 </ul>
 
 <script>
+    var chekVal = 0;
+    var lastPressed = 0;
     var li = document.getElementsByTagName('li');
     var ul = document.getElementsByTagName("ul");
-    var chekVal = 0;
 
     for(var i = 0; i < li.length; i++){
         li[i].id = i;
@@ -44,7 +50,7 @@ Shift+Клик добавляет промежуток от последнего
             }
         }
 
-        console.log('chekVal ' + chekVal);
+
         if(event.ctrlKey){
             target.className = target.className == 'selected' ? '' : 'selected';
         }else{
@@ -57,13 +63,108 @@ Shift+Клик добавляет промежуток от последнего
 
             if(chekVal == 0){
                 console.log('empty');
+                for(var i = 0; i < target.id; i++){
+                    li[i].className = 'selected';
+                }
+            }else{
+                if(lastPressed < target.id){
+                    for(var i = lastPressed; i < target.id; i++){
+                    li[i].className = 'selected';
+                    }
+                }
+                if(lastPressed > target.id){
+                    for(var i = target.id; i <= lastPressed; i++){
+                        li[i].className = 'selected';
+                    }
+                }
             }
-
-
         }
+        lastPressed = +target.id;
         chekVal = 0;
     }
 
+/* answer
+ var ul = document.getElementsByTagName('ul')[0];
+
+ var lastClickedLi = null;
+
+ // --- обработчики ---
+
+ ul.onclick = function(e) {
+ e = e || event;
+ var target = e.target || event.srcElement;
+
+ // возможно, клик был внутри списка UL, но вне элементов LI
+ if (target.tagName != "LI") return;
+
+ var isMac = navigator.platform.indexOf("Mac") != -1;
+ if(isMac ? e.metaKey : e.ctrlKey) { // для Mac проверяем Cmd, т.к. Ctrl + click там контекстное меню
+ toggleSelect(target);
+ } else if (e.shiftKey) {
+ selectFromLast(target);
+ } else {
+ selectSingle(target);
+ }
+
+ lastClickedLi = target;
+ }
+
+ ul.onselectstart = ul.onmousedown = function() {
+ return false;
+ }
+
+ // --- функции для выделения ---
+
+ function toggleSelect(li) {
+ li.className = (li.className == '') ? 'selected' : '';
+ }
+
+ function selectFromLast(target) {
+ var startElem = lastClickedLi || ul.children[0];
+
+ var isLastClickedBefore = compareDocumentPosition(startElem, target) & 4;
+
+ if (isLastClickedBefore) {
+ for(var elem = startElem; elem != target; elem = elem.nextSibling) {
+ elem.className = 'selected';
+ }
+ } else {
+ for(var elem = startElem; elem != target; elem = elem.previousSibling) {
+ elem.className = 'selected';
+ }
+ }
+ elem.className = 'selected';
+
+ }
+
+
+
+
+ function deselectAll() {
+ for(var i=0; i<ul.children.length; i++) {
+ ul.children[i].className = '';
+ }
+ }
+
+ function selectSingle(li) {
+ deselectAll();
+ li.className = 'selected';
+ }
+
+
+ // --- вспомогательная функция ---
+ // http://learn.javascript.ru/compare-document-position
+ function compareDocumentPosition(a, b) {
+ return a.compareDocumentPosition ?
+ a.compareDocumentPosition(b) :
+ (a != b && a.contains(b) && 16) +
+ (a != b && b.contains(a) && 8) +
+ (a.sourceIndex >= 0 && b.sourceIndex >= 0 ?
+ (a.sourceIndex < b.sourceIndex && 4) +
+ (a.sourceIndex > b.sourceIndex && 2) :
+ 1);
+ }
+ */
 </script>
 </body>
 </html>

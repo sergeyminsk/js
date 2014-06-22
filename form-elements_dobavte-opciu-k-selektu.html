@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+<form name="form">
+    <select>
+        <option value="Rock">Рок</option>
+        <option value="Blues" selected>Блюз</option>
+    </select>
+</form>
+<script>
+
+    var select = document.body.children[0].getElementsByTagName('select')[0];
+    var opt = document.getElementsByName('option')[0];
+
+    for (var i=0; i<select.options.length; i++) {
+        if(select.options[i].selected) {
+            console.log(select.options[i].value);
+            console.log(select.options[i].text);
+        }
+    }
+/*  мой вариант
+    var anotherOne = document.createElement('option');
+    anotherOne.value = 'Classic';
+    anotherOne.text = 'Классика';
+    anotherOne.selected = true;
+    select.appendChild(anotherOne);
+*/
+    var newOption = new Option("Classic", "Классика");
+    select.appendChild(newOption);
+    newOption.selected = true;
+
+
+</script>
+</body>
+</html>

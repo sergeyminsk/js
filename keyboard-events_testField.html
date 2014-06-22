@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        table{
+            margin: 25%;
+            margin-top: 100px;
+        }
+        td{
+            padding: 30px;
+            font-size: 30px;
+            color: lightslategrey;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <td>keyCode</td><td>which</td><td>char</td><td>type</td>
+    </tr>
+    <tr>
+        <td><div id="keyCode"></div></td><td><div id="which"></div></td><td><div id="char"></div></td><td><div id="type"></div></td>
+    </tr>
+</table>
+
+<script>
+
+
+    var keyCode = document.getElementById('keyCode');
+    var whichID = document.getElementById('which');
+    var charID = document.getElementById('char');
+    var type = document.getElementById('type');
+
+    document.body.onkeydown = function(){
+        keyCode.innerHTML = event.keyCode;
+        whichID.innerHTML = event.which;
+        type.innerHTML = event.type;
+
+    }
+
+    document.onkeyup = function(){
+        type.innerHTML = event.type;
+
+    }
+
+    document.onkeypress = function(){
+        charID.innerHTML = document.title = getChar(event);
+    }
+
+    function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+
+    /*  Кросс-браузерная функция для получения символа из события keypress */
+    // event.type должен быть keypress
+    function getChar(event) {
+        if (event.which == null) {  // IE
+            if (event.keyCode < 32) return null; // спец. символ
+            return String.fromCharCode(event.keyCode)
+        }
+        if (event.which!=0 && event.charCode!=0) { // все кроме IE
+            if (event.which < 32) return null; // спец. символ
+            return String.fromCharCode(event.which); // остальные
+        }
+        return null; // спец. символ
+    }
+
+</script>
+</body>
+</html>

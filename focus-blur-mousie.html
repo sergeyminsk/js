@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        #mousie:focus {
+            outline: none;
+            border: 1px dashed black;
+        }
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+Кликните на мышонка и передвигайте его, нажимая клавиши со стрелками.
+
+<div style="width:41px;height:48px;background:url(mousie.gif)"></div>
+<div style="width:41px; height:48px; background:url(mousie.gif)" id="mousie" tabindex="-1"></div>
+
+
+
+<script>
+// правильный мышенок
+    document.getElementById('mousie').onclick = function() {
+        var coords = getCoords(this);
+        this.style.position = 'absolute';
+        this.style.left = coords.left + 'px';
+        this.style.top = coords.top + 'px';
+
+        if (this.parentNode != document.body) {
+            document.body.appendChild(this);
+            this.focus();
+        }
+    };
+
+
+    document.getElementById('mousie').onkeydown = function(e) {
+        e = e || event;
+
+        switch(e.keyCode) {
+            case 37: // влево
+                this.style.left = parseInt(this.style.left) - this.offsetWidth + 'px';
+                return false;
+            case 38: // вверх
+                this.style.top = parseInt(this.style.top) - this.offsetHeight + 'px';
+                return false;
+            case 39: // вправо
+                this.style.left = parseInt(this.style.left) + this.offsetWidth + 'px';
+                return false;
+            case 40: // вниз
+                this.style.top = parseInt(this.style.top) + this.offsetHeight + 'px';
+                return false;
+        }
+    };
+
+
+// мой мышенок)))
+    var div = document.getElementsByTagName('div')[0];
+    var foc = false;
+    var valX = 0;
+    var valY = 0;
+
+    div.onmousedown = function(e){
+        if(foc == true){
+            foc = false;
+            console.log('foc == false');
+        }else{
+            foc = true;
+            console.log('foc == true');
+        }
+        if(foc == false){
+            return false;
+        }
+
+        console.log('clik ' + foc);
+
+        document.onkeydown = function(e){
+//            console.log('key');
+            if(event.keyCode == 38 && foc == true){
+                console.log('UP');
+                e = fixEvent(e);
+                div.style.position = 'absolute';
+                valY -= 50;
+                div.style.top = e.pageY + valY + 'px';
+            }
+            if(event.keyCode == 40 && foc == true){
+                console.log('DOWN');
+                e = fixEvent(e);
+                div.style.position = 'absolute';
+                valY += 50;
+                div.style.top = e.pageY + valY + 'px';
+            }
+            if(event.keyCode == 37 && foc == true){
+                console.log('LEFT');
+                e = fixEvent(e);
+                div.style.position = 'absolute';
+                valX -= 50;
+                div.style.left = e.pageX+valX+'px';
+            }
+            if(event.keyCode == 39 && foc == true){
+                console.log('RIGHT');
+                e = fixEvent(e);
+                div.style.position = 'absolute';
+                valX += 50;
+                div.style.left = e.pageX + valX + 'px';
+            }
+        }
+    }
+
+
+    function getCoords(elem) {
+        var box = elem.getBoundingClientRect();
+
+        var body = document.body;
+        var docElem = document.documentElement;
+
+        var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+        var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+
+        var clientTop = docElem.clientTop || body.clientTop || 0;
+        var clientLeft = docElem.clientLeft || body.clientLeft || 0;
+
+        var top  = box.top +  scrollTop - clientTop;
+        var left = box.left + scrollLeft - clientLeft;
+
+        return { top: Math.round(top), left: Math.round(left) };
+    }
+
+    function fixEvent(e) {
+        e = e || window.event;
+
+        if (!e.target) e.target = e.srcElement;
+
+        if (e.pageX == null && e.clientX != null ) { // если нет pageX..
+            var html = document.documentElement;
+            var body = document.body;
+
+            e.pageX = e.clientX + (html.scrollLeft || body && body.scrollLeft || 0);
+            e.pageX -= html.clientLeft || 0;
+
+            e.pageY = e.clientY + (html.scrollTop || body && body.scrollTop || 0);
+            e.pageY -= html.clientTop || 0;
+        }
+
+        if (!e.which && e.button) {
+            e.which = e.button & 1 ? 1 : ( e.button & 2 ? 3 : ( e.button & 4 ? 2 : 0 ) )
+        }
+
+        return e;
+    }
+
+</script>
+
+
+</body>
+</html>

@@ -1,26 +1,49 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-    <title></title>
+    <meta charset="UTF-8">
     <style>
-        input {
-            color: gainsboro;
+        .placeholder {
+            color: gray;
         }
     </style>
 </head>
 <body>
-<input type="text">
+
+
+<input type="text" class="placeholder" value="E-mail">
+
+
 
 <script>
-    var input = document.body.children[0];
-    input.value = 'E-mail'
-    input.onfocus = function(){
+    var input = document.getElementsByTagName('input')[0];
+
+    function prepareInput(input) {
+        input.className = '';
+        input.oldValue = input.value;
         input.value = '';
     }
 
-    input.onblur = function(){
-        input.value = 'E-mail';
+    function resetInput(input) {
+        input.className = 'placeholder';
+        input.value = input.oldValue;
     }
+
+
+    input.onfocus = function() {
+        if (this.className == 'placeholder') {
+            prepareInput(this);
+        }
+    }
+
+    input.onblur = function() {
+        if (this.value == '') {
+            resetInput(this);
+        }
+    }
+
 </script>
+
+
 </body>
 </html>

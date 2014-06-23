@@ -11,7 +11,12 @@
             display: block;
         }
 
-        /* ваши стили */
+        .error input, .error textarea {
+            border: 1px solid red;
+        }
+        .error {
+            color: red;
+        }
 
     </style>
 </head>
@@ -54,22 +59,47 @@
 </form>
 
 <script>
-
-    function validate(form) {
-        var inputFrom = document.getElementsByTagName('input')[0];
-        var inputPass1 = document.getElementsByTagName('input')[1];
-        var inputPass2 = document.getElementsByTagName('input')[2];
-        var selTo = document.getElementsByTagName('select')[0];
-        var message = document.getElementsByTagName('textarea')[0];
-
-        console.log(!!inputFrom.value);
-        console.log(!!inputPass2.value);
-        console.log(inputPass1.value == inputPass2.value);
-        console.log(!selTo.options[0].selected);
-        console.log(!!message.value);
+    function showError(container, errorMessage) {
+        container.className = 'error';
+        var msgElem = document.createElement('span');
+        msgElem.className = "error-message";
+        msgElem.innerHTML = errorMessage;
+        container.appendChild(msgElem);
     }
 
-    var form = document.body.children[0];
+    function resetError(container) {
+        container.className = '';
+        if (container.lastChild.className == "error-message") {
+            container.removeChild(container.lastChild);
+        }
+    }
+
+    function validate(form) {
+        var elems = form.elements;
+
+        resetError(elems.from.parentNode);
+        if (!elems.from.value) {
+            showError(elems.from.parentNode, ' Укажите от кого.');
+        }
+
+        resetError(elems.password.parentNode);
+        if (!elems.password.value) {
+            showError(elems.password.parentNode, ' Укажите пароль.');
+        } else if (elems.password.value != elems.password2.value) {
+            showError(elems.password.parentNode, ' Пароли не совпадают.');
+        }
+
+        resetError(elems.to.parentNode);
+        if (!elems.to.value) {
+            showError(elems.to.parentNode, ' Укажите, куда.');
+        }
+
+        resetError(elems.message.parentNode);
+        if (!elems.message.value) {
+            showError(elems.message.parentNode, ' Отсутствует текст.');
+        }
+
+    }
 
 </script>
 

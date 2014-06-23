@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        input {
+            color: gainsboro;
+        }
+    </style>
+</head>
+<body>
+<input type="text">
+
+<script>
+    var input = document.body.children[0];
+    input.value = 'E-mail'
+    input.onfocus = function(){
+        input.value = '';
+    }
+
+    input.onblur = function(){
+        input.value = 'E-mail';
+    }
+</script>
+</body>
+</html>

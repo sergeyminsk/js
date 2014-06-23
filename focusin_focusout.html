@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<form name="form">
+    <input type="text" name="name" value="Ваше имя">
+    <input type="text" name="surname" value="Ваша фамилия">
+</form>
+<style>
+    .focused { border: 2px solid red; }
+</style>
+
+<script>
+    function onFormFocus() { this.className = 'focused'; }
+    function onFormBlur() { this.className = ''; }
+
+    var form = document.forms.form;
+
+    if (form.addEventListener) {
+        form.addEventListener('focus', onFormFocus, true);
+        form.addEventListener('blur', onFormBlur, true);
+    } else {  // IE<9
+        form.onfocusin = onFormFocus;
+        form.onfocusout = onFormBlur;
+    }
+</script>
+
+</body>
+</html>

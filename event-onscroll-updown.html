@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            height:100%;
+            width: 100%;
+            padding:  0;
+            margin:  0;
+        }
+        #matrix {
+            width: 400px;
+            margin: auto;
+            overflow: auto;
+            text-align: justify;
+        }
+
+
+        #updown {
+            height: 9px;
+            width: 14px;
+            position: fixed;
+            top: 30px;
+            left: 10px;
+            cursor: pointer;
+        }
+
+        #updown.up {
+            background: url(updown.gif) left top;
+        }
+
+        #updown.down {
+            background: url(updown.gif) left -9px;
+        }
+
+    </style>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<div id="updown"></div>
+
+<div id="matrix">
+    <script>for (var i = 0; i < 2000; i++) document.writeln(i)</script>
+</div>
+
+<script>
+
+    var updownElem = document.getElementById('updown');
+
+    var pageYLabel = 0;
+
+    updownElem.onclick = function() {
+        var pageY = window.pageYOffset || document.documentElement.scrollTop;
+
+        switch(this.className) {
+            case 'up':
+                pageYLabel = pageY;
+                window.scrollTo(0, 0);
+                this.className = 'down';
+                break;
+
+            case 'down':
+                window.scrollTo(0, pageYLabel);
+                this.className = 'up';
+        }
+
+    }
+
+    window.onscroll = function() {
+        var pageY = window.pageYOffset || document.documentElement.scrollTop;
+        var innerHeight = document.documentElement.clientHeight;
+
+        switch(updownElem.className) {
+            case '':
+                if (pageY > innerHeight) {
+                    updownElem.className = 'up';
+                }
+                break;
+
+            case 'up':
+                if (pageY < innerHeight) {
+                    updownElem.className = '';
+                }
+                break;
+
+            case 'down':
+                if (pageY > innerHeight) {
+                    updownElem.className = 'up';
+                }
+                break;
+
+        }
+    }
+/*
+//  мой ответ
+    var arrow = document.getElementById('arrow');
+    var avatarTop = getCoords(arrow).top;
+    var pageY;
+    var rem = 0;
+    var hasPressed = false;
+
+    arrow.style.display = 'none';
+//    arrow.className = "fixed";
+    window.onscroll = function(){
+        pageY = window.pageYOffset || document.documentElement.scrollTop;
+
+        if(!hasPressed){
+            if (pageY >= 200 ) {
+                arrow.style.display = '';
+                console.log(pageY + 'px');
+                arrow.className = "fixed";
+            } else {
+                arrow.className = "";
+                arrow.style.display = 'none';
+            }
+        }else{
+            console.log(hasPressed);
+            if (pageY >= 200 ) {
+                if(pageY == 300){
+                    hasPressed = false;
+                }
+//                arrow.style.display = '';
+                console.log(pageY + 'px');
+                arrow.className = "fixed";
+            }
+        }
+
+    }
+
+    arrow.onmousedown = function(){
+        hasPressed = true;
+        console.log('arrow has pressed');
+        if(document.body.scrollTop == 0){
+            document.body.scrollTop = rem;
+        }else{
+            rem = pageY;
+            document.body.scrollTop = 0;
+            arrow.className = "fixed";
+            arrow.style.display = '';
+        }
+
+        console.log(pageY);
+    }
+
+
+    function getCoords(elem) {
+        var box = elem.getBoundingClientRect();
+
+        var body = document.body;
+        var docElem = document.documentElement;
+
+        var scrollTop = window.pageYOffset || docElem.scrollTop || body.scrollTop;
+        var scrollLeft = window.pageXOffset || docElem.scrollLeft || body.scrollLeft;
+
+        var clientTop = docElem.clientTop || body.clientTop || 0;
+        var clientLeft = docElem.clientLeft || body.clientLeft || 0;
+
+        var top  = box.top +  scrollTop - clientTop;
+        var left = box.left + scrollLeft - clientLeft;
+
+        return { top: Math.round(top), left: Math.round(left) };
+    }
+*/
+</script>
+</body>
+</html>

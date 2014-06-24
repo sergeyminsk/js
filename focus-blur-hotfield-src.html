@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        #view, #area {
+            height:150px;
+            width:400px;
+            font-family:arial;
+        }
+
+        #view {
+            /* padding + border = 3px */
+            padding: 2px;
+            border:1px solid black;
+        }
+
+        #area {
+
+
+            /* replace padding with border (still 3px not to shift the contents) */
+            border: 3px groove blue;
+            padding: 0px;
+        }
+        #area:focus {
+            outline: none; /* remove focus border in Safari */
+        }
+
+    </style>
+</head>
+<body>
+
+<ul>
+    <li>Ctrl-E to start editing.</li>
+    <li>While editing: Ctrl-S to save, Esc to cancel.</li>
+</ul>
+
+
+<textarea id="area"></textarea>
+<div id="view">Text</div>
+
+<script>
+    var textArea = document.getElementById('area');
+    var div = document.getElementById('view');
+
+    textArea.style.display = 'none';
+    document.onkeydown = function(event){
+        event = event || window.event;
+
+        if(event.ctrlKey && event.keyCode == 69){
+            console.log('ctrl + E has pressed');
+            div.style.display = 'none';
+            textArea.style.display = '';
+            textArea.value = div.innerHTML;
+            textArea.focus();
+            return false;
+        }
+        if(event.ctrlKey && event.keyCode == 83){
+            console.log('ctrl + S has pressed');
+            div.style.display = '';
+            textArea.style.display = 'none';
+            div.innerHTML = textArea.value;
+            return false;
+        }
+    }
+/* верный ответ
+ area = document.getElementById('area');
+ view = document.getElementById('view');
+
+ document.onkeydown = function(e) {
+ e = e || event;
+ if (e.keyCode == 27) { // escape
+ cancel();
+ return false;
+ }
+
+ if ((e.ctrlKey && e.keyCode == 'E'.charCodeAt(0)) && !area.offsetHeight) {
+ edit();
+ return false;
+ }
+
+ if ((e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) && area.offsetHeight) {
+ save();
+ return false;
+ }
+ }
+
+ function edit() {
+ view.style.display = 'none';
+ area.value = view.innerHTML;
+ area.style.display = 'block';
+ area.focus();
+ }
+
+ function save() {
+ area.style.display = 'none';
+ view.innerHTML = area.value;
+ view.style.display = 'block';
+ }
+
+ function cancel() {
+ area.style.display = 'none';
+ view.style.display = 'block';
+ }
+
+
+
+
+* */
+</script>
+</body>
+</html>

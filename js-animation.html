@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+        .example_block {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            position: absolute;
+        }
+        .example_path {
+            height: 25px;
+            width: 800px;
+            margin: 20px;
+            background-color: darkgray;
+            padding: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div onclick="move(this.children[0])" class="example_path">
+    <div class="example_block"></div>
+</div>
+
+
+
+<script>
+
+    function move(elem) {
+        var to = 500;
+        animate({
+                    duration: 1000,
+        step: function(progress) {
+            // progress меняется от 0 до 1, left от 0px до 500px
+            elem.style.left = to*progress + "px";
+        }
+    });
+    }
+
+
+
+    function animate(opts) {
+        var start = new Date; // сохранить время начала
+        var timer = setInterval(function() {
+            // вычислить сколько времени прошло
+            var progress = (new Date - start) / opts.duration;
+            if (progress > 1) progress = 1;
+            // отрисовать анимацию
+            opts.step(progress);
+            if (progress == 1) clearInterval(timer); // конец :)
+        }, opts.delay || 10); // по умолчанию кадр каждые 10мс
+    }
+
+
+
+</script>
+
+</body>
+</html>

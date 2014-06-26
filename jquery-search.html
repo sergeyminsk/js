@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+<script src="http://code.jquery.com/jquery.js"></script>
+
+<ul id="tut">
+    <li>
+        <a href="http://jquery.com">jQuery</a>
+        <ul>
+            <li><a href="http://blog.jquery.com">jQuery Blog</a></li>
+        </ul>
+    </li>
+    <li><a href="http://sizzlejs.com">Sizzle</a></li>
+    <li><code>filter</code>: <i>только подходящие</i>.</li>
+    <li><code>not</code>: <em>не подходящие</em>.</li>
+    <li><code>has</code>: <i>по потомкам</i>.</li>
+    <li>..iddqd</li>
+</ul>
+
+<script>
+
+    var links = $('li a').each(function(i) {
+        console.log( i + ": " + this.href + ' ' + this.innerHTML);
+        if (i == 0) return false;
+    });
+
+    $('li a[href$=".com"]')
+            .each(function() {this.className = "com";})
+            .each(function() {console.log(this.href);});
+
+    var dff = $('UL').eq(0).get(0);
+    console.log(dff);
+
+    var list = $('li');
+    list.filter(':even').css('color', 'blue');// ФИЛЬТР: чётные
+    list.not(':even').css('color', 'green');  // НЕ чётные
+    list.has('em').css('background', 'pink'); // СОДЕРЖАТ em
+
+    var result = list.filter(function() {
+        return this.firstChild.nodeType == 3;
+    });
+    console.log( result.length );
+    console.log(result[0].firstChild.nodeType);
+    console.log(result[1].firstChild.nodeType);
+
+    console.log('##############################');
+    /* Возвращает true, если какой-нибудь элемент из коллекции подходит под фильтр.*/
+    var listUL = $('ul').children();
+    console.log( list.is('li') ); // true
+    console.log( list.is('.other') ); // true
+    console.log( list.is(':hidden') ); // false
+
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    var elems = $('ul');
+    var li = document.getElementsByTagName('li')[0];
+    li.innerHTML = 'aded by .add';
+    elems = elems.add( li );
+    console.log(elems.length); // 2
+
+    console.log(elems.length);
+    elems = elems.add( '.other' ); // можно - по селектору
+    console.log(elems.length); // 3
+
+    console.log('*****************************');
+    $('code')
+            .css('color', 'red') // подсветить CODE красным
+            .map(function() {
+                return this.parentNode; // получить коллекцию родителей CODE
+            })
+            .css('color', 'green'); // подсветить их зелёным
+
+
+    console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+    var link = $('a[href*="sizzlejs"]');
+    var ulZZ = link.closest('ul');// ближайший сверху UL
+    console.log( ulZZ[0].id );
+
+    var lis = $('li')[0];
+    uls = link.closest('ul', lis); // ближайший сверху UL, но внутри LI
+    console.log( uls[0].innerHTML); // 0, нет таких
+
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    $('li')
+            .contents()  // все узлы-дети LI
+            .map(function() {  // обернуть текстовые узлы в скобки
+                if (this.nodeType == 3) this.data = "("+this.data+")"
+            });
+
+
+
+
+
+</script>
+
+</body>
+</html>

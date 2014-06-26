@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script src="animate.js"></script>
+    <style>
+        #field {
+            height: 200px;
+            border-bottom: 1px solid black;
+        }
+        #ball {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="field">
+    <img onclick="move(this)" src="ball.gif" width="40" height="40" id="ball">
+</div>
+
+<script>
+    function move(img){
+        animateProp({
+            elem: img,
+            prop: 'top',
+            start: 0, // все размеры в пикселях
+            end: 168,
+            duration: 1000,
+            delta: makeEaseOut(bounce)
+
+        });
+        animateProp({
+            elem: img,
+            prop: 'left',
+            start: 0, // все размеры в пикселях
+            end: 100,
+            duration: 1000,
+            delta: linear
+
+
+        });
+    }
+</script>
+
+
+</body>
+</html>

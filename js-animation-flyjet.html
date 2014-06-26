@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="animate.js"></script>
+    <style>
+        img {
+            margin: auto;
+            display: block;
+            cursor: pointer;
+        }
+        #main {
+            width: 400px;
+            height: 240px;
+        }
+    </style>
+</head>
+<body>
+
+Кликните картинку для анимации. Расположение элементов при анимации не должно меняться!
+<table>
+    <tr>
+        <td>Догнать</td>
+        <td id="main">
+            <img onclick="growIn(this)" src="flyjet.jpg" width="400" height="240">
+        </td>
+        <td>..и перегнать!</td>
+    </tr>
+</table>
+
+<b>В процессе анимации повторные нажатия на изображение игнорируются.</b>
+
+<script>
+
+    function growIn(img) {
+        animateProp({
+            elem: img,
+            prop: 'height',
+            start: 0, // все размеры в пикселях
+            end: 240,
+            duration: 5000,
+            delta: makeEaseOut(bounce)
+
+        });
+        animateProp({
+            elem: img,
+            prop: 'width',
+            start: 0, // все размеры в пикселях
+            end: 400,
+            duration: 5000,
+            delta: makeEaseOut(bounce)
+
+        });
+    }
+</script>
+
+</body>
+</html>
+
+

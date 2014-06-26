@@ -6,14 +6,15 @@
         .example_block {
             width: 20px;
             height: 20px;
-            background-color: red;
+            background-color: #ffffff;
             position: absolute;
         }
         .example_path {
-            height: 25px;
-            width: 800px;
-            margin: 20px;
-            background-color: darkgray;
+            height: 20px;
+            width: 500px;
+/*            margin: auto;
+            margin-top: 300px;*/
+            background-color: black;
             padding: 2px;
         }
     </style>
@@ -25,21 +26,19 @@
 </div>
 
 
-
+<script src="animate.js"></script>
 <script>
-
+/*
     function move(elem) {
         var to = 500;
         animate({
                     duration: 1000,
         step: function(progress) {
             // progress меняется от 0 до 1, left от 0px до 500px
-            elem.style.left = to*progress + "px";
+            elem.style.width = to*progress + "px";
         }
     });
     }
-
-
 
     function animate(opts) {
         var start = new Date; // сохранить время начала
@@ -50,7 +49,20 @@
             // отрисовать анимацию
             opts.step(progress);
             if (progress == 1) clearInterval(timer); // конец :)
-        }, opts.delay || 10); // по умолчанию кадр каждые 10мс
+        }, opts.delay || 13); // по умолчанию кадр каждые 10мс
+    }
+*/
+
+    function move(elem, delta, duration) {
+        var to = 490;
+        animate({
+            delay: 10,
+            duration: duration || 10000,
+            delta: makeEaseInOut(bounce),
+            step: function(delta) {
+            elem.style.left = to*delta + "px";
+        }
+        });
     }
 
 

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="animate.js"></script>
+    <style>
+        #img {
+            margin: auto;
+            display: block;
+            cursor: pointer;
+            -webkit-transition: all 3s;
+            -moz-transition: all 3s;
+            -o-transition: all 3s;
+            -ms-transition: all 3s;
+        }
+        #main {
+            width: 400px;
+            height: 240px;
+        }
+    </style>
+</head>
+<body>
+
+Кликните картинку для анимации. Расположение элементов при анимации не должно меняться!
+<table>
+    <tr>
+        <td>Догнать</td>
+        <td id="main"><img onclick="growIn(this)" src="flyjet.jpg" width="400" height="240">
+        </td>
+        <td>..и перегнать!</td>
+    </tr>
+</table>
+
+<b>В процессе анимации повторные нажатия на изображение игнорируются.</b>
+
+<script>
+    function bbb(){
+        img.style.width = '400px';
+        img.style.height = '240px';
+    }
+    function growIn(img1) {
+        // для запрета второго клика, пока не завершится текущее событие
+        var process = arguments.callee;
+        if (process.busy) return;
+        process.busy = true;
+
+        document.getElementsByTagName('td')[1].removeChild(img1);
+
+        var img = document.createElement('img');
+        var td = document.getElementsByTagName('td')[1];
+
+        img.setAttribute('onclick', "growIn(this)");
+        img.style.width = 0;
+        img.style.height = 0;
+        img.src="flyjet.jpg";
+        img.id = 'img';
+        td.appendChild(img);
+
+        setTimeout(bbb, 0);
+// для запрета второго клика, пока не завершится текущее событие
+        img.addEventListener('webkitTransitionEnd', done, false);
+        img.addEventListener('oTransitionEnd', done, false);
+        img.addEventListener('msTransitionEnd', done, false);
+        img.addEventListener('transitionend', done, false);
+// для запрета второго клика, пока не завершится текущее событие
+        function done(e) {
+            if (process.busy) {
+                process.busy = false;
+            }
+        }
+
+    }
+</script>
+
+</body>
+</html>
+
+

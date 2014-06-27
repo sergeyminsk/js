@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <style>
+        .menu-items {
+            display: none;
+            margin: 0;
+        }
+        .menu-title {
+            font-weight: bold;
+            cursor: pointer;
+            background: url(arrow-right.png) left center no-repeat;
+            padding-left: 18px;
+        }
+        .menu-open .menu-items {
+            display: block;
+        }
+        .menu-open .menu-title {
+            background-image: url(arrow-down.png);
+        }
+    </style>
+</head>
+<body>
+
+<div id="food-menu" class="menu">
+    <span class="menu-title">Продуктовое меню</span>
+    <ul class="menu-items">
+        <li><a href="#cheese">Сыр</a></li>
+        <li><a href="#sausage">Колбаса</a></li>
+        <li><a href="#cake">Торт</a></li>
+    </ul>
+</div>
+
+<script>
+    var foodMenu = new Menu({
+        elem: $('#food-menu')
+    });
+    foodMenu.close();
+
+    $('#food-menu').on('select', function(e) {
+        alert('Вы выбрали ' + e.value);
+    });
+
+    function Menu(options) {
+        var self = this;
+
+        var elem = options.elem;
+
+        // отмена выделения при клике на меню
+        elem.on('mousedown selectstart', false);
+
+        elem.on('click', '.menu-title', onTitleClick);
+
+        elem.on('click', '.menu-items a', onItemClick);
+
+
+        // ---------- методы ----------
+
+        function onTitleClick() {
+            if (elem.hasClass('menu-open')) {
+                self.close();
+            } else {
+                self.open();
+            }
+        }
+
+        function onItemClick(e) {
+            selectItem( $(e.target) );
+            return false;
+        }
+
+        function selectItem(item) {
+            elem.trigger({
+                type: 'select',
+                value: item.attr('href')
+            });
+        }
+
+        this.open = function() {
+            elem.addClass('menu-open');
+        };
+
+        this.close = function() {
+            elem.removeClass('menu-open');
+        };
+
+    }
+
+</script>
+
+</body>
+</html>
+

@@ -90,7 +90,70 @@
             });
 
 
+    var div2 = document.createElement('div');
+    div2.style.height = '50px';
+    div2.style.width = '50px';
+    div2.style.backgroundColor = 'red';
+    div2.className = 'menu-title';
+    document.body.appendChild(div2);
 
+
+    var div = document.createElement('div');
+    div.style.height = '50px';
+    div.style.width = '50px';
+    div.style.backgroundColor = 'blue';
+    div.className = 'menu-title';
+    document.body.appendChild(div);
+
+    var div3 = document.createElement('div');
+    div3.style.height = '25px';
+    div3.style.width = '25px';
+    div3.style.backgroundColor = 'black';
+    div3.className = 'menu-title';
+    div.appendChild(div3);
+/*
+    $('div').eq(0)
+            .on('click', null, onTitleClick)
+            .end()
+            .eq(1)
+            .on('mouseover', '.menu-title', onTitleClick2);
+*/
+    function onTitleClick1() {
+        console.log('onTitleClick()1');
+    }
+    function onTitleClick2() {
+        console.log('onTitleClick()2');
+    }
+    function onTitleClick3() {
+        console.log('onTitleClick()3');
+    }
+
+    var events = {
+                '.menu-title': {'mouseover click': onTitleClick1},
+                '': {'mouseover': onTitleClick2}
+    };
+
+    function delegateEvents(events) {
+        for(var selector in events) {
+            $('div').on( events[selector], selector );
+        }
+    }
+    delegateEvents(events);
+    $('body').on('test', function(e, pageX, pageY) {
+        alert( pageX + pageY );
+    })
+
+    $('body').trigger('test', [100, 200]);
+
+    $('body').on('test2', function(e) {
+        alert( e.pageX + e.pageY );
+    })
+
+    $('body').trigger({
+        type: 'test2', // любое название
+        pageX: 300,    // любые свойства
+        pageY: 200
+    });
 
 
 </script>

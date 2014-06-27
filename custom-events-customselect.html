@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Селект</title>
-    <script src='http://code.jquery.com/jquery-latest.js'></script>
     <meta charset="utf-8">
+    <script src='http://code.jquery.com/jquery-latest.js'></script>
     <style>
         .customselect {
             width: 200px;
@@ -54,11 +54,12 @@
         }
 
     </style>
-    <script src="customselect.js"></script>
 </head>
 <body>
 
 <div>Последний результат: <span id="result">...</span></div>
+
+
 
 <div id="animal-select" class="customselect">
     <div class="customselect-title">Выберите</div>
@@ -83,6 +84,25 @@
 
 
 <script>
+    function CustomSelect(options){
+        var self = this;
+        var elem = options.elem;
+
+        elem.on('click', onClick)
+
+        function onClick(){
+            console.log('onClick');
+            console.log(elem.html());
+            console.log($(self).length);
+
+        }
+
+        function onClickOpen(){
+            console.log($('ol').has('.customselect-options'));
+        }
+        function onClickClose(){}
+    }
+    // создаём два селекта
     var animalSelect = new CustomSelect({
         elem: $('#animal-select')
     });
@@ -91,78 +111,10 @@
         elem: $('#food-select')
     });
 
+    // выводим выбранное значение
     $([animalSelect, foodSelect]).on('select', function (event) {
         $('#result').html(event.value)
     });
-
-
-
-
-
-    //////////////////////////////////////////
-
-
-    function CustomSelect(options) {
-        var self = this;
-
-        var elem = options.elem;
-
-        elem.on('click', '.customselect-title', onTitleClick);
-        elem.on('click', 'li', onOptionClick);
-
-        var isOpen = false;
-
-        // ------ обработчики ------
-
-        function onTitleClick(event) {
-            toggle();
-        }
-
-        // закрыть селект, если клик вне его
-        function onDocumentClick(event) {
-            var isInside = $(event.target).closest(elem).length;
-            if (!isInside) close();
-        }
-
-        function onOptionClick(event) {
-            close();
-
-            var name = $(event.target).html();
-            var value = $(event.target).data('value');
-
-            setValue(name, value);
-        }
-
-        // ------------------------
-
-        function setValue(name, value) {
-            elem.find('.customselect-title').html(name);
-
-            $(self).triggerHandler({
-                type: 'select',
-                name: name,
-                value: value
-            });
-        }
-
-        function toggle() {
-            if (isOpen) close()
-            else open();
-        }
-
-        function open() {
-            elem.addClass('customselect-open');
-            $(document).on('click', onDocumentClick);
-            isOpen = true;
-        }
-
-        function close() {
-            elem.removeClass('customselect-open');
-            $(document).off('click', onDocumentClick);
-            isOpen = false;
-        }
-
-    }
 
 </script>
 

@@ -26,55 +26,29 @@
 <script>
     function Voter(options) {
         var self = this;
+
+        $('.vote').eq(0).html(options.value || 0)
+
         var elem = options.elem;
+        elem.on('click', onClick)
 
-        var voteElem = elem.find('.vote');
+        function onClick(){
+            var e = e || event;
 
-        // вынесем текущее значение в отдельную переменную
-        var vote = options.value || 0;
-
-        // установить значение без генерации события
-        setVote(vote, true);
-
-        elem.on('click', '.down', onDownClick)
-                .on('click', '.up', onUpClick)
-                .on('mousedown selectstart', false);
-
-        // ----------- методы -------------
-
-        function onDownClick() {
-            // сам обработчик не меняет голос, он вызывает для этого функцию
-            voteDecrease();
-        }
-
-        function onUpClick() {
-            voteIncrease();
-        }
-
-        function voteDecrease() {
-            self.setVote( vote - 1 );
-        }
-
-        function voteIncrease() {
-            self.setVote( vote + 1 );
-        }
-
-        // сделали функцию приватной, чтобы её можно было вызывать до объявления
-        // в коде инициализации
-        function setVote(newVote, quiet) {
-            vote = newVote;
-
-            voteElem.html( vote );
-
-            if (!quiet) {
-                $(self).triggerHandler({
-                    type: 'change',
-                    value: vote
-                });
+            if(e.target.className == 'up'){
+                $('.vote').eq(0).html(+$('.vote').eq(0).html() + 1);
             }
+            if(e.target.className == 'down'){
+                $('.vote').eq(0).html(+$('.vote').eq(0).html() - 1);
+            }
+
+
+            $(self).trigger({
+                type: 'change',
+                value: $('.vote').eq(0).html()
+            })
         }
 
-        this.setVote = setVote;
 
     }
 
@@ -84,7 +58,7 @@
     });
 
     $(voter).on('change', function(e) {
-        console.log(e.value);
+        console.log('value: ' + e.value);
     });
 
 </script>

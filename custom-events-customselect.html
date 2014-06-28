@@ -11,7 +11,7 @@
             display: inline-block;
         }
 
-        .customselect-title {
+        .title {
             height: 17px;
             border: 1px solid #ADD8E6;
             background-position: right;
@@ -38,7 +38,7 @@
             list-style: none;
             margin: 0;
             padding: 0;
-            display: none;
+            /*display: none;*/
 
             position: absolute;
             z-index: 1000;
@@ -62,46 +62,70 @@
 
 
 <div id="animal-select" class="customselect">
-    <div class="customselect-title">Выберите</div>
+    <div class="title">Выберите</div>
     <ol class="customselect-options">
         <!-- значение хранится в свойстве data-value -->
-        <li data-value="bird">Птицы</li>
-        <li data-value="fish">Рыбы</li>
-        <li data-value="animal">Звери</li>
-        <li data-value="dino">Динозавры</li>
-        <li data-value="simplest">Одноклеточные</li>
+        <li id="bird">Птицы</li>
+        <li id="fish">Рыбы</li>
+        <li id="animal">Звери</li>
+        <li id="dino">Динозавры</li>
+        <li id="simplest">Одноклеточные</li>
     </ol>
 </div>
 
 <div id="food-select" class="customselect">
-    <div class="customselect-title">Выберите</div>
+    <div class="title">Выберите</div>
     <ol class="customselect-options">
-        <li data-value="carnivore">Плотоядные</li>
-        <li data-value="herbivore">Травоядные</li>
-        <li data-value="omnivore">Всеядные</li>
+        <li id="carnivore">Плотоядные</li>
+        <li id="herbivore">Травоядные</li>
+        <li id="omnivore">Всеядные</li>
     </ol>
 </div>
 
 
 <script>
+    $('.customselect-options').css('display', 'none');
+    var isOpen = false;
+
     function CustomSelect(options){
         var self = this;
         var elem = options.elem;
 
-        elem.on('click', onClick)
+        elem.on('click', onClick);
+
+
+        function selectIteam(){
+            $(event.target).trigger({
+                type: 'chosen',
+                text: event.target.innerHTML
+            });
+            $(this).parent('.customselect').children().eq(0).html(event.target.innerHTML);
+        }
 
         function onClick(){
-            console.log('onClick');
-            console.log(elem.html());
-            console.log($(self).length);
+            if(isOpen == true){
+                $(this).find('ol').css('display', 'none');
+                isOpen = false;
+            }else{
+                $(this).find('ol').css('display', '');
+                isOpen = true;
+//                console.log($(this).find('ol').get(0).tagName );
+                $('.customselect-options').on('click', selectIteam);
+
+            }
 
         }
 
-        function onClickOpen(){
-            console.log($('ol').has('.customselect-options'));
-        }
-        function onClickClose(){}
+        elem.on('chosen', function(e){
+            $('#result').html(e.text);
+        });
+
     }
+
+
+
+
+
     // создаём два селекта
     var animalSelect = new CustomSelect({
         elem: $('#animal-select')

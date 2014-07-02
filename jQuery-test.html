@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="jquery.easing.1.3.js"></script>
+    <title></title>
+</head>
+<body>
+<form action="/save/">
+    <input type="text" name="name" value="Ivan"/>
+    <select name="role">
+        <option>User</option>
+        <option>Admin</option>
+    </select>
+    <input type="submit"/>
+</form>
+<input type="button" id="butt" value="Click!"/>
+<div id="div">1</div>
+<img id='img' src="1.jpg">
+<script>
+    var ff = 0;
+    var butt = $('#butt');
+    butt.on('click', onTo);
+    butt.on('touchstart', onTo);
+    function onTo(){
+        ff++;
+        $('#div').html(ff);
+
+    }
+    var img = $('#img');
+    img.on('click', function(){
+        img.animate({'opacity':'-=0.1', 'height':'+=10px'})//, 3000, 'easeInOutQuad'/*from animate.js*/);
+                .animate({'opacity':'-=0.1', 'height':'+=10px'},{queue:false});//, 3000, 'easeInOutQuad'/*from animate.js*/);
+//        img.slideUp({ duration: 3000, easing: "easeInExpo" });
+    });
+    console.log($(window).height());
+    console.log(img.offset());
+    console.log(img.offset({top:100, left:100}));
+    console.log(img.offset());
+    console.log(img.position());
+    console.log('scrollTop() ' + $(document).scrollTop());
+
+
+
+    console.log($('input').eq(0).val());
+    $('input').eq(0).val('Ivan-Bolvan');
+</script>
+</body>
+</html>

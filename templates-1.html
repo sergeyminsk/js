@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+<!-- файл с кодом шаблонки -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/0.9.2/lodash.js"></script>
+
+<!-- шаблон для списка от 1 до count -->
+<script type="text/template" id="list-template">
+    <ul>
+        <% for (var i=1; i<=users.length; i++) { %>
+        <li><%=i + ' jj'%></li>
+        <% } %>
+    </ul>
+</script>
+
+<script>
+    var tmpl = document.getElementById('list-template').innerHTML;
+    var data = { count: 9 };
+
+    var users = [
+        {name: "Вася", age: 10},
+        {name: "Петя", age: 15},
+        {name: "Женя", age: 20},
+        {name: "Маша", age: 25},
+        {name: "Даша", age: 30},
+    ];
+
+
+    // ..а вот и результат
+    var result = _.template(tmpl, users, { sourceURL: "/my/template/url" });
+    document.write( result );
+
+</script>
+
+</body>
+</html>

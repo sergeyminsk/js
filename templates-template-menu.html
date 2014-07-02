@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="menu.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/0.9.0/lodash.js"></script>
+
+    <style>
+        .menu-items {
+            display: none;
+            margin: 0;
+        }
+
+        .menu-title {
+            font-weight: bold;
+            cursor: pointer;
+            background: url(arrow-right.png) left center no-repeat;
+            padding-left: 18px;
+        }
+
+        .menu-open .menu-items {
+            display: block;
+        }
+
+        .menu-open .menu-title {
+            background-image: url(arrow-down.png);
+        }
+
+
+    </style>
+</head>
+<body>
+
+<script type="text/template" id="menu-template">
+    <ul>dd
+        <li>dd</li>
+    </ul>
+</script>
+
+<script>
+    var isOpen = true;
+    var foodMenu = new Menu({
+        title: 'Продуктовое меню',
+        items: [
+            {link: 'cheese', html: 'Сыр'},
+            {link: 'sausage', html: 'Колбаса'},
+            {link: 'cake', html: 'Торт'}
+        ],
+        template: $('#menu-template').html()
+    });
+
+    foodMenu.getElement().appendTo('body');
+
+    foodMenu.open();
+
+    function Menu(options){
+        var result = _.template( options.template, options.title);
+        document.write( result );
+        result = _.template( options.template, options.items);
+        document.write( result );
+    }
+
+</script>
+
+</body>
+</html>
+
